@@ -1,0 +1,13 @@
+*{
+  box-sizing: border-box;
+}
+
+.wrapper {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+}
+
+.wrapper div {
+  border: 2px solid black;
+}
