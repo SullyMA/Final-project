@@ -1,0 +1,12 @@
+body {
+  background-image: url("https://media.giphy.com/media/vBMzK6KN6M6zK/giphy.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+h2 {
+  font-size: 50px;
+  margin-left: 500px;
+  float: left;
+
+}
