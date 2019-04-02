@@ -20,23 +20,17 @@
 
       <h2>Let us take you away</h2>
       <!-- Search -->
-                <form class="" action="/places" method="post">
+
+            <% if (user.local.email) { %>
+                <form class="" action="/activities" method="post">
                   <input type="text" name="city" value="" placeholder="city" required="required">
-                    <input type="text" class="search_input search_input_2" placeholder="Departure" xrequired="required">
-                    <input type="text" class="search_input search_input_3" placeholder="Arrival" xrequired="required">
-                    <input type="text" class="search_input search_input_4" placeholder="Budget" xrequired="required">
-                    <button class="home_search_button">search</button>
+                    <input type="text" name="departure" class="search_input search_input_2" placeholder="Departure" xrequired="required">
+                    <input type="text" name="arrival" class="search_input search_input_3" placeholder="Arrival" xrequired="required">
+                    <input type="text" name="budget" class="search_input search_input_4" placeholder="Budget" xrequired="required">
+                    <button class="home_search_button" type="submit">search</button>
                   </form>
       <!-- LOCAL INFORMATION -->
-
-          <h3><span class="fa fa-user"></span> Local</h3>
-
-          <% if (user.local.email) { %>
-          <p>
-            <strong>id</strong>: <%= user._id %><br>
-            <strong>email</strong>: <%= user.local.email %><br>
-            <strong>password</strong>: <%= user.local.password %>
-          </p>
+        <% } %>
   </script>
   <script src="main.js"></script>
 </body>

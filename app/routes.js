@@ -3,16 +3,28 @@ module.exports = function(app, passport, db, ObjectId) {
   // normal routes ===============================================================
 
   // show the home page (will also have our login links)
-app.post('/places', function(req, res) {
-let Url = "https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyDgBZAdYVo1gCLfgZIg15VQf3ey9N3fdtg&query=attractions+near+"+req.body.city
-fetch(Url)
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(myJson) {
-    console.log(JSON.stringify(myJson));
-  });
-})
+app.post('/activities', function(req, res) {
+     db.collection('activities').save({
+        city: req.body.city,
+        departure: req.body.departure,
+        arrival: req.body.arrival,
+        budget: req.body.budget
+        }, (err, result) => {
+        if (err) return console.log(err)
+        console.log('saved to database')
+        res.redirect('/destination')
+        })
+    })
+// api being fetched is work in progress****
+
+// let Url = "https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyDgBZAdYVo1gCLfgZIg15VQf3ey9N3fdtg&query=attractions+near+"+req.body.city
+// fetch(Url)
+//   .then(function(response) {
+//     return response.json();
+//   })
+//   .then(function(myJson) {
+//     console.log(JSON.stringify(myJson));
+//   });
 
 //api key
 ////////AIzaSyDgBZAdYVo1gCLfgZIg15VQf3ey9N3fdtg
@@ -22,22 +34,19 @@ fetch(Url)
     res.render('index.ejs');
   });
 
+  app.get('/destination', function(req, res) {
+    res.render('destination.ejs');
+  });
   // PROFILE SECTION =========================
-  // app.get('/profile', isLoggedIn, function(req, res) {
-  //   db.collection('city').find().toArray((err, city) => {
-  //     if (err) return console.log(err)
-  //     db.collection('city').find({user: req.user.local.email}).toArray((err, city) => {
-  //       if (err) return console.log(err)
-  //       var cart = null
-  //       if(city.length > 0) cart = carts[0]
-  //       res.render('profile.ejs', {
-  //         user : req.user,
-  //         trave: city,
-  //
-  //       })
-  //     });
-  //   });
-  // });
+  app.get('/profile', isLoggedIn, function(req, res) {
+  db.collection('activities').find().toArray((err, result) => {
+    if (err) return console.log(err)
+    res.render('profile.ejs', {
+      user: req.user,
+      trave: result
+    })
+  })
+});
 
 
   // LOGOUT ==============================

@@ -14,6 +14,7 @@ var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
+const ejsLint = require('ejs-lint');
 
 var configDB = require('./config/database.js');
 var ObjectId = require('mongodb').ObjectId
