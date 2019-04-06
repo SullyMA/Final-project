@@ -17,6 +17,7 @@ app.post('/activities', function(req, res) {
     })
 // api being fetched is work in progress****
 
+<<<<<<< HEAD
 get_activities = function(req) {
 let Url = "https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyDgBZAdYVo1gCLfgZIg15VQf3ey9N3fdtg&query=attractions+near+"+req.body.city
 fetch(Url)
@@ -27,6 +28,16 @@ fetch(Url)
     console.log(JSON.stringify(myJson));
   });
 }
+=======
+// let Url = "https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyDgBZAdYVo1gCLfgZIg15VQf3ey9N3fdtg&query=attractions+near+"+req.body.city
+// fetch(Url)
+//   .then(function(response) {
+//     return response.json();
+//   })
+//   .then(function(myJson) {
+//     console.log(JSON.stringify(myJson));
+//   });
+>>>>>>> 464f2a499d6fbdbeaa9110ecb454eca4831b35ec
 
 //api key
 ////////AIzaSyDgBZAdYVo1gCLfgZIg15VQf3ey9N3fdtg
@@ -37,6 +48,7 @@ fetch(Url)
   });
 
   app.get('/destination', function(req, res) {
+<<<<<<< HEAD
 
     res.render('destination.ejs');
   });
@@ -45,13 +57,21 @@ fetch(Url)
     res.render('favorites.ejs');
   });
 
+=======
+    res.render('destination.ejs');
+  });
+>>>>>>> 464f2a499d6fbdbeaa9110ecb454eca4831b35ec
   // PROFILE SECTION =========================
   app.get('/profile', isLoggedIn, function(req, res) {
   db.collection('activities').find().toArray((err, result) => {
     if (err) return console.log(err)
     res.render('profile.ejs', {
       user: req.user,
+<<<<<<< HEAD
       travel: result
+=======
+      trave: result
+>>>>>>> 464f2a499d6fbdbeaa9110ecb454eca4831b35ec
     })
   })
 });
