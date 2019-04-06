@@ -1,0 +1,47 @@
+
+body {
+  background-image: url("flightinfo.JPG");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.welcome {
+  font-style: italic;
+  color: gold;
+  font-size: 50px;
+}
+
+
+.userpic {
+  height: 183px;
+  border-radius: 500px;
+  width: 185px;
+  border: 1px solid black;
+  display: block;
+}
+
+div .userpic span {
+  font-size: 45px;
+
+}
+.header {
+  grid-template-columns: 100px;
+  border: 1px solid black;
+}
+
+.header p {
+  font-size: 50px;
+}
+
+.wrapper {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+}
+
+.wrapper div {
+  border: 2px solid black;
+  width: 33.3333%;
+  height: 500px;
+
+}

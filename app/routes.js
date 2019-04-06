@@ -3,7 +3,21 @@ module.exports = function(app, passport, db, ObjectId) {
   // normal routes ===============================================================
 
   // show the home page (will also have our login links)
-app.post('/places', function(req, res) {
+app.post('/activities', function(req, res) {
+     db.collection('activities').save({
+        city: req.body.city,
+        departure: req.body.departure,
+        arrival: req.body.arrival,
+        budget: req.body.budget
+        }, (err, result) => {
+        if (err) return console.log(err)
+        console.log('saved to database')
+        res.redirect('/destination')
+        })
+    })
+// api being fetched is work in progress****
+
+get_activities = function(req) {
 let Url = "https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyDgBZAdYVo1gCLfgZIg15VQf3ey9N3fdtg&query=attractions+near+"+req.body.city
 fetch(Url)
   .then(function(response) {
@@ -12,7 +26,7 @@ fetch(Url)
   .then(function(myJson) {
     console.log(JSON.stringify(myJson));
   });
-})
+}
 
 //api key
 ////////AIzaSyDgBZAdYVo1gCLfgZIg15VQf3ey9N3fdtg
@@ -22,23 +36,37 @@ fetch(Url)
     res.render('index.ejs');
   });
 
-  // PROFILE SECTION =========================
-  // app.get('/profile', isLoggedIn, function(req, res) {
-  //   db.collection('city').find().toArray((err, city) => {
-  //     if (err) return console.log(err)
-  //     db.collection('city').find({user: req.user.local.email}).toArray((err, city) => {
-  //       if (err) return console.log(err)
-  //       var cart = null
-  //       if(city.length > 0) cart = carts[0]
-  //       res.render('profile.ejs', {
-  //         user : req.user,
-  //         trave: city,
-  //
-  //       })
-  //     });
-  //   });
-  // });
+  app.get('/destination', function(req, res) {
 
+    res.render('destination.ejs');
+  });
+  app.get('/favorites', function(req, res) {
+
+    res.render('favorites.ejs');
+  });
+
+  // PROFILE SECTION =========================
+  app.get('/profile', isLoggedIn, function(req, res) {
+  db.collection('activities').find().toArray((err, result) => {
+    if (err) return console.log(err)
+    res.render('profile.ejs', {
+      user: req.user,
+      travel: result
+    })
+  })
+});
+
+// Saved Bookig Flights ==================
+
+app.get('/destination', function(req, res) {
+db.collection('favorites').find().toArray((err, result) => {
+  if (err) return console.log(err)
+  res.render('destination.ejs', {
+    user: req.user,
+    booking: result
+  })
+})
+});
 
   // LOGOUT ==============================
   app.get('/logout', function(req, res) {
@@ -97,12 +125,11 @@ fetch(Url)
     });
   });
 
-};
-
 // route middleware to ensure user is logged in
-function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated())
-  return next();
+  function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated())
+      return next();
+    res.redirect('/');
+  };
 
-  res.redirect('/');
-}
+};
